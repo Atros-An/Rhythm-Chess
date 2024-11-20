@@ -1,0 +1,79 @@
+[gd_scene load_steps=5 format=3 uid="uid://byetx42ait8w3"]
+
+[ext_resource type="Script" path="res://scripts/square.gd" id="1_nb5dc"]
+[ext_resource type="Texture2D" uid="uid://djh6x8v238fcl" path="res://images/Glow_strip.png" id="2_cubjq"]
+[ext_resource type="Texture2D" uid="uid://bf4l2odu11uyd" path="res://images/White_dot.svg" id="2_wsv4q"]
+
+[sub_resource type="Environment" id="Environment_mik4u"]
+background_mode = 3
+glow_enabled = true
+glow_intensity = 1.0
+glow_blend_mode = 4
+
+[node name="board_square" type="Control"]
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 1
+script = ExtResource("1_nb5dc")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+clip_contents = true
+custom_minimum_size = Vector2(128, 128)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -64.0
+offset_top = -64.0
+offset_right = 64.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+mouse_filter = 1
+color = Color(0.960784, 0.929412, 0.898039, 1)
+metadata/_edit_use_anchors_ = true
+
+[node name="Glow_layer" type="Node2D" parent="."]
+modulate = Color(0, 2, 2, 1)
+
+[node name="GlowStrip" type="Sprite2D" parent="Glow_layer"]
+position = Vector2(-4, 64)
+texture = ExtResource("2_cubjq")
+
+[node name="GlowStrip2" type="Sprite2D" parent="Glow_layer"]
+position = Vector2(132, 64)
+texture = ExtResource("2_cubjq")
+
+[node name="GlowStrip3" type="Sprite2D" parent="Glow_layer"]
+position = Vector2(64, -4)
+rotation = 1.5708
+texture = ExtResource("2_cubjq")
+
+[node name="GlowStrip4" type="Sprite2D" parent="Glow_layer"]
+position = Vector2(63.9999, 132)
+rotation = 1.5708
+texture = ExtResource("2_cubjq")
+
+[node name="Color_Dot" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(64, 64)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("2_wsv4q")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_mik4u")

@@ -1,0 +1,125 @@
+[gd_scene load_steps=3 format=3 uid="uid://ccr0x0pqi22bv"]
+
+[ext_resource type="Script" path="res://scripts/menus/options.gd" id="1_ovvsc"]
+[ext_resource type="PackedScene" uid="uid://csmac854gt20p" path="res://scenes/music_options.tscn" id="2_o4031"]
+
+[node name="options" type="Control"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_ovvsc")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 0
+
+[node name="MarginContainer2" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -336.0
+offset_top = -214.0
+offset_right = 336.0
+offset_bottom = 214.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer2"]
+layout_mode = 2
+color = Color(0.254902, 0.254902, 0.254902, 1)
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="TabContainer" type="TabContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+tab_alignment = 1
+current_tab = 1
+clip_tabs = false
+
+[node name="Controls" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer/Controls"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer/Controls/MarginContainer"]
+custom_minimum_size = Vector2(0, 256)
+layout_mode = 2
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 2
+
+[node name="botton_container" type="VBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer/Controls/MarginContainer/ScrollContainer"]
+layout_mode = 2
+
+[node name="Music" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer" instance=ExtResource("2_o4031")]
+layout_mode = 2
+
+[node name="Game" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer/Game"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer/Game/MarginContainer"]
+layout_mode = 2
+
+[node name="Exit" type="Button" parent="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer"]
+visible = false
+layout_mode = 2
+text = "Exit"
+
+[connection signal="tab_selected" from="MarginContainer2/MarginContainer/VBoxContainer/HBoxContainer/TabContainer" to="." method="_on_tab_container_tab_selected"]

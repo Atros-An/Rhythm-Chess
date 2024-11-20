@@ -1,0 +1,43 @@
+[gd_scene load_steps=2 format=3 uid="uid://cy03fmyujgcke"]
+
+[ext_resource type="Script" path="res://scripts/menus/key_rebind_botton.gd" id="1_mkd5x"]
+
+[node name="key_rebind_botton" type="BoxContainer" groups=["key_rebind_botton"]]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -296.0
+offset_top = -32.0
+offset_right = 296.0
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_mkd5x")
+action_name = "Action"
+key = "Key"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="HBoxContainer"]
+custom_minimum_size = Vector2(256, 64)
+layout_mode = 2
+theme_override_font_sizes/font_size = 32
+text = "Action"
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 200
+
+[node name="Button" type="Button" parent="HBoxContainer"]
+custom_minimum_size = Vector2(128, 64)
+layout_mode = 2
+toggle_mode = true
+text = "Key"
+
+[connection signal="toggled" from="HBoxContainer/Button" to="." method="_on_button_toggled"]

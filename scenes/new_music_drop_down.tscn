@@ -1,0 +1,32 @@
+[gd_scene load_steps=2 format=3 uid="uid://c2m502oqdvafs"]
+
+[ext_resource type="Script" path="res://scripts/menus/new_music_drop_down.gd" id="1_nn7tp"]
+
+[node name="New_music" type="HBoxContainer" groups=["Music_drop_down"]]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -40.5
+offset_top = -16.0
+offset_right = 40.5
+offset_bottom = 16.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource("1_nn7tp")
+
+[node name="New_music" type="OptionButton" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+fit_to_longest_item = false
+
+[node name="remove_music" type="Button" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+text = "X"
+
+[connection signal="item_selected" from="New_music" to="." method="_on_new_music_item_selected"]
+[connection signal="pressed" from="remove_music" to="." method="_on_remove_music_pressed"]

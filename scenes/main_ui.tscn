@@ -1,0 +1,97 @@
+[gd_scene load_steps=5 format=3 uid="uid://b2j2xtfmaidht"]
+
+[ext_resource type="Script" path="res://scripts/menus/main_ui.gd" id="1_cbbqt"]
+[ext_resource type="PackedScene" uid="uid://ccr0x0pqi22bv" path="res://scenes/options.tscn" id="2_g4v1k"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_nbrwi"]
+font_size = 64
+
+[sub_resource type="SystemFont" id="SystemFont_slf1s"]
+
+[node name="main_ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_cbbqt")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="titles" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="Space" type="Control" parent="MarginContainer/titles"]
+custom_minimum_size = Vector2(0, 200)
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/titles"]
+layout_mode = 2
+text = "Rhythm Chess"
+label_settings = SubResource("LabelSettings_nbrwi")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="menu" type="HBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/menu"]
+layout_mode = 2
+
+[node name="Space2" type="Control" parent="MarginContainer/menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 500)
+layout_mode = 2
+
+[node name="Start Game" type="Button" parent="MarginContainer/menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_slf1s")
+theme_override_font_sizes/font_size = 24
+text = "Start Game"
+
+[node name="Space3" type="Control" parent="MarginContainer/menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="Options" type="Button" parent="MarginContainer/menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_slf1s")
+theme_override_font_sizes/font_size = 24
+text = "Options"
+
+[node name="Space4" type="Control" parent="MarginContainer/menu/VBoxContainer"]
+custom_minimum_size = Vector2(0, 32)
+layout_mode = 2
+
+[node name="End Game" type="Button" parent="MarginContainer/menu/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = SubResource("SystemFont_slf1s")
+theme_override_font_sizes/font_size = 24
+text = "End Game"
+
+[node name="options" parent="." instance=ExtResource("2_g4v1k")]
+visible = false
+layout_mode = 1
+
+[connection signal="pressed" from="MarginContainer/menu/VBoxContainer/Start Game" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="MarginContainer/menu/VBoxContainer/Options" to="." method="_on_options_pressed"]
+[connection signal="pressed" from="MarginContainer/menu/VBoxContainer/End Game" to="." method="_on_end_game_pressed"]
