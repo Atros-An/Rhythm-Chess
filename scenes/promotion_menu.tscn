@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://brugaaptwigai"]
 
 [ext_resource type="Script" path="res://scripts/Promotion_Menu.gd" id="1_n0jwr"]
-[ext_resource type="Texture2D" uid="uid://3bjhftmbfpw" path="res://images/Chess_Pieces_Sprite.svg" id="2_bv3g0"]
+[ext_resource type="Texture2D" uid="uid://3bjhftmbfpw" path="res://images/Cburnett_Chess_Pieces_Sprite.svg" id="2_smvc7"]
 
 [node name="Promotion_Menu" type="ColorRect"]
 custom_minimum_size = Vector2(128, 512)
@@ -31,7 +31,7 @@ layout_mode = 2
 ignore_texture_size = true
 
 [node name="ChessPiecesSprite" type="Sprite2D" parent="VBoxContainer/Queen"]
-texture = ExtResource("2_bv3g0")
+texture = ExtResource("2_smvc7")
 offset = Vector2(64, 64)
 hframes = 6
 vframes = 2
@@ -43,7 +43,7 @@ layout_mode = 2
 ignore_texture_size = true
 
 [node name="ChessPiecesSprite" type="Sprite2D" parent="VBoxContainer/Knight"]
-texture = ExtResource("2_bv3g0")
+texture = ExtResource("2_smvc7")
 offset = Vector2(64, 64)
 hframes = 6
 vframes = 2
@@ -55,7 +55,7 @@ layout_mode = 2
 ignore_texture_size = true
 
 [node name="ChessPiecesSprite" type="Sprite2D" parent="VBoxContainer/Rook"]
-texture = ExtResource("2_bv3g0")
+texture = ExtResource("2_smvc7")
 offset = Vector2(64, 64)
 hframes = 6
 vframes = 2
@@ -67,7 +67,7 @@ layout_mode = 2
 ignore_texture_size = true
 
 [node name="ChessPiecesSprite" type="Sprite2D" parent="VBoxContainer/Bishop"]
-texture = ExtResource("2_bv3g0")
+texture = ExtResource("2_smvc7")
 offset = Vector2(64, 64)
 hframes = 6
 vframes = 2

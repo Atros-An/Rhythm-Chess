@@ -424,8 +424,10 @@ func make_move(piece_index:PIECE_TYPE_INDEX,piece_square:BIT_SQUARE,target_squar
 
 
 func checkmate_detection(color:bool) -> bool:
-	emit_signal("checkmate",not color)
-	return get_all_move_for_color(color)==[] and King_in_threat(color)#[[-1,0,0]] and King_in_threat(color)
+	if get_all_move_for_color(color)==[] and King_in_threat(color):
+		emit_signal("checkmate",not color)
+		return true
+	return false
 
 
 func get_evaluation() -> float:

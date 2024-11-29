@@ -593,7 +593,8 @@ func reset_game() -> void:
 
 
 func _on_button_pressed() -> void:
-	game_board.make_move(-1,0,0)
+	print(game_board.get_all_move_for_color(false))
+	print(game_board.checkmate_detection(false))
 	pass
 
 
