@@ -1,10 +1,24 @@
 extends Object
 class_name Game_Assets
 
+const rank_8:int=BIT_SQUARE.a8|BIT_SQUARE.b8|BIT_SQUARE.c8|BIT_SQUARE.d8|BIT_SQUARE.e8|BIT_SQUARE.f8|BIT_SQUARE.g8|BIT_SQUARE.h8
+const rank_1:int=BIT_SQUARE.a1|BIT_SQUARE.b1|BIT_SQUARE.c1|BIT_SQUARE.d1|BIT_SQUARE.e1|BIT_SQUARE.f1|BIT_SQUARE.g1|BIT_SQUARE.h1
+const file_a:int=BIT_SQUARE.a1|BIT_SQUARE.a2|BIT_SQUARE.a3|BIT_SQUARE.a4|BIT_SQUARE.a5|BIT_SQUARE.a6|BIT_SQUARE.a7|BIT_SQUARE.a8
+const file_h:int=BIT_SQUARE.h1|BIT_SQUARE.h2|BIT_SQUARE.h3|BIT_SQUARE.h4|BIT_SQUARE.h5|BIT_SQUARE.h6|BIT_SQUARE.h7|BIT_SQUARE.h8
+const queen_dir:Array[int]=[-9,-8,-7,-1,1,7,8,9]
 
+const rook_dir:Array[int]=[-8,-1,1,8]
+const bishop_dir:Array[int]=[-9,-7,7,9]
+const sliding_piece:Array[int]=[Queen,Rook,Bishop]
+
+const boundary_dic:={
+	-9:[rank_8,file_a],-8:[rank_8],-7:[rank_8,file_h],
+	-1:[file_a],1:[file_h],
+	7:[rank_1,file_a],8:[rank_1],9:[rank_1,file_h]
+}
 
 enum {Pawn,Rook,Knight,Bishop,Queen,King}
-
+enum {White_Pawn,White_Rook,White_Knight,White_Bishop,White_Queen,White_King,Black_Pawn,Black_Rook,Black_Knight,Black_Bishop,Black_Queen,Black_King}
 enum PIECE_TYPE_INDEX {
 	White_Pawns_index,
 	White_Rooks_index,
@@ -57,16 +71,31 @@ const coordinate_list:Array[String]=[
 
 
 func find_color_from_type_index(type_index:int):
-	if type_index==-1:
+	if type_index==PIECE_TYPE_INDEX.null_piece_index:
 		return null
 	return type_index<6
 
 func find_type_from_type_index(type_index:int) -> int:
-	if type_index==-1:
-		return -1
+	if type_index==PIECE_TYPE_INDEX.null_piece_index:
+		return PIECE_TYPE_INDEX.null_piece_index
 	return type_index%6
 
 func get_type_index_uisng_type_and_color(type:int,color:bool) -> int:
 	if color:
 		return type
 	return type+6
+
+func int_squares_to_bit_square_lists(int_squares: int) -> Array:
+	var return_list: Array = []
+	if int_squares == 0:
+		return return_list
+
+	var current:int = int_squares
+	while current != 0:
+		# Extract the least significant set bit
+		var square:BIT_SQUARE = current & -current
+		return_list.append(square)
+		# Remove the least significant set bit
+		current -= square
+
+	return return_list

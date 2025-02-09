@@ -25,7 +25,7 @@ The idea and rules came from the game with same name appeared in vloume 9 of my 
 - [ ] Better piece selections
 - [ ] Better piece move hints
 ### How to play:
-Materials to prepare:
+Materials to prepare:  
 	A friend (optional)  
 	A copy of the game  
 	Several music files.ogg for playing  
@@ -69,7 +69,7 @@ And others who contributed to this project, and you
 - [ ] 选择棋子优化
 - [ ] 棋子可走格子提示优化
 ### 游玩方式：
-准备材料：
+准备材料：  
 	朋友一位（可选）  
 	游戏本体一份  
 	拿来游玩的音乐.ogg若干  

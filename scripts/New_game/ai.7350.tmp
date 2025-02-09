@@ -8,11 +8,9 @@ class_name  chess_ai
 
 func find_next_best_move_on_board(board:New_Board) -> Array:
 	var move:Array
-	
-	
-	
+
 	return move
-	
+
 
 func minimax_alpha_beta(board:New_Board,depth:int,color:bool,alpha:float=-1000000.0,beta:float=1000000.0)-> float:
 	
@@ -81,7 +79,6 @@ func minimax(board:New_Board,depth:int,color:bool)-> float:
 		best = max(val,best)
 	
 	return best
-
 
 func find_all_moves(board:New_Board,depth:int,starting_color:bool):
 	if depth == 0 or len(board.win)>0:

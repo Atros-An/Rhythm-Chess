@@ -78,8 +78,6 @@ func _init(
 	self.Black_attack_masks_for_pieces=input_Black_attack_masks_for_pieces
 	self.Black_pining_masks=input_Black_pining_masks
 	self.Black_checking_masks=input_Black_checking_masks
-	
-
 
 
 func coordinate_to_square(coordinate:COORDINATE) -> BIT_SQUARE:
@@ -99,8 +97,7 @@ func square_to_coordinate(square:BIT_SQUARE) -> COORDINATE:
 	return int(log(square)/log(2))
 
 
-func bitboard_to_fen() -> String:
-	
+func bitboard_to_fen(halfmove_clock: int, fullmove_number: int) -> String:
 	
 	
 	var piece_map = {
@@ -116,30 +113,36 @@ func bitboard_to_fen() -> String:
 	PIECE_TYPE_INDEX.Black_Bishops_index: "b",
 	PIECE_TYPE_INDEX.Black_Knights_index: "n",
 	PIECE_TYPE_INDEX.Black_Pawns_index: "p",
-	PIECE_TYPE_INDEX.null_piece_index: "?"
 	}
 
-	#Piece placement
-	var piece_placement:String=""
-	for coordinate in range(64):
-		if coordinate%8==0:
-			piece_placement+="/"
-		piece_placement+=piece_map[find_piece_type_index_on_square(coordinate_to_square(coordinate))]
-	piece_placement=piece_placement.right(piece_placement.length()-1)
-	piece_placement=piece_placement.replace("????????","8")
-	piece_placement=piece_placement.replace("???????","7")
-	piece_placement=piece_placement.replace("??????","6")
-	piece_placement=piece_placement.replace("?????","5")
-	piece_placement=piece_placement.replace("????","4")
-	piece_placement=piece_placement.replace("???","3")
-	piece_placement=piece_placement.replace("??","2")
-	piece_placement=piece_placement.replace("?","1")
-	
-	#Active color
-	var active_color_fen:String = "w"
+	# 1. Piece placement
+	var fen_board = []
+	for rank in range(8):  # From rank 8 to rank 1
+		var row_fen = ""
+		var empty_count = 0
+		for file in range(8):  # From a to h
+			var square = 1 << (rank * 8 + file)
+			var piece_found = false
+			for i in range(all_piece_list.size()):
+				if all_piece_list[i] & square != 0:
+					if empty_count > 0:
+						row_fen += str(empty_count)
+						empty_count = 0
+					row_fen += piece_map.get(i, "?")  # Add piece symbol
+					piece_found = true
+					break
+			if not piece_found:
+				empty_count += 1
+		if empty_count > 0:
+			row_fen += str(empty_count)
+		fen_board.append(row_fen)
+	var piece_placement = "/".join(fen_board)
 
-	#Castling rights
-	var castling_fen:String = ""
+	# 2. Active color
+	var active_color_fen = "w"
+
+	# 3. Castling rights
+	var castling_fen = ""
 	if can_castle[0]:
 		castling_fen += "K"
 	if can_castle[1]:
@@ -151,15 +154,24 @@ func bitboard_to_fen() -> String:
 	if castling_fen == "":
 		castling_fen = "-"
 
-	#En passant square
-	var en_passant_fen:String = "-" if en_passant_square == 0 else coordinate_list[square_to_coordinate(en_passant_square)].to_lower()
+	# 4. En passant square
+	var en_passant_fen = "-" if en_passant_square == 0 else square_to_algebraic(en_passant_square)
 
-	#Halfmove clock and fullmove number
-	var halfmove_fen:String = "0"
-	var fullmove_fen:String = "0"
+	# 5. Halfmove clock and fullmove number
+	var halfmove_fen = str(halfmove_clock)
+	var fullmove_fen = str(fullmove_number)
 
+	# Combine all fields into FEN
 	return piece_placement + " " + active_color_fen + " " + castling_fen + " " + en_passant_fen + " " + halfmove_fen + " " + fullmove_fen
 
+
+func square_to_algebraic(square: BIT_SQUARE) -> String:
+	var index = square_to_coordinate(square)
+	if index == -1:
+		return "-"  # Invalid square
+	var file = char(97 + (index % 8))  # 'a' = ASCII 97
+	var rank = str(1 + (index / 8))   # Ranks are 1-based
+	return file + rank
 
 
 func find_piece_type_index_on_square(square:BIT_SQUARE) -> PIECE_TYPE_INDEX:
@@ -422,6 +434,7 @@ func find_available_move_for_king(color:bool,piece_square:BIT_SQUARE) -> int:
 				moveable_squares|=BIT_SQUARE.c8
 			if can_castle[3] and not square_under_attack(color,BIT_SQUARE.f8) and is_square_empty(BIT_SQUARE.g8) and is_square_empty(BIT_SQUARE.f8):
 				moveable_squares|=BIT_SQUARE.g8
+	
 	
 	return moveable_squares
 

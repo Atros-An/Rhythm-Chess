@@ -128,6 +128,8 @@ func _ready() -> void:
 	Place_Piece()
 	
 	next_music()
+	if Global.debug:
+		$Button.visible=true
 
 
 func _process(delta) -> void:
@@ -181,7 +183,6 @@ func add_Piece(coordinate:String,type:int,color:int) -> PIECE:
 	new_piece.color=color
 	get_Square(coordinate).add_child(new_piece)
 	
-	#registering pieces
 	if color==White:
 		Global.White_Piece_list.append(new_piece)
 	elif color==Black:
@@ -304,7 +305,7 @@ func Selection_process(piece:PIECE) -> void:
 		
 		for i in $Selection_layer.get_children():
 			
-			for bit_square in game_board.find_available_move_for_piece(get_piece_index_for_piece(i),get_bit_square_from_piece(i)):
+			for bit_square in game_board.int_squares_to_bit_square_lists(game_board.find_available_move_for_piece(get_piece_index_for_piece(i),get_bit_square_from_piece(i))):
 				var square=bit_square_to_square(bit_square)
 				show_color_square(square,0.5,1,1,1)
 				i.available_list.append(square)
@@ -430,13 +431,13 @@ func _input(event) -> void:
 			Down_list[Black]=true
 		elif event.as_text_keycode()==Global.key_dic["Black right"]:
 			Right_list[Black]=true
-		
-		
+
+
 		if event.as_text_keycode()=="Backspace":
 			for i in $Selection_layer.get_children():
 				print(i)
-		
-		
+
+
 		if $Selection_layer.get_children()!=[]:
 			for i in $Selection_layer.get_children():
 				piece_movement(i)
@@ -593,9 +594,21 @@ func reset_game() -> void:
 
 
 func _on_button_pressed() -> void:
-	print(game_board.get_all_move_for_color(false))
-	print(game_board.checkmate_detection(false))
 	pass
+	print(game_board.bitboard_to_fen())
+	#for Square in Board_Grid.get_children():
+		#Square.color_dot.visible=false
+	#print("pressed")
+#
+	#for i in game_board.int_squares_to_bit_square_lists(game_board.Black_attack_mask[0]):
+		#show_color_square(bit_square_to_square(i),1,0,0,1)
+	#for i in game_board.Black_checking_masks:
+		#for square in game_board.int_squares_to_bit_square_lists(i):
+			#show_color_square(bit_square_to_square(square),1,0.5,0,1)
+	#for i in game_board.Black_pining_masks:
+		#for square in game_board.int_squares_to_bit_square_lists(i):
+			#show_color_square(bit_square_to_square(square),1,1,0,1)
+
 
 
 func end_game(winner=null) -> void:

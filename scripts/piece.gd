@@ -16,9 +16,5 @@ func _ready():
 	self.global_position=Home_Square.global_position+Vector2(64,64)
 	Current_Square=Home_Square
 	$ChessPiecesSprite.frame=type+6*color
-	#W KQBNRP
-	#B KQBNRP
-	
-	#W PRNBQK
-	#B PRBNQK
+
 	available_list.append(Home_Square)

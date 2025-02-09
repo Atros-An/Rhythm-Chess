@@ -125,6 +125,7 @@ zoom = Vector2(0.6, 0.6)
 [node name="Selection_layer" type="Node2D" parent="."]
 
 [node name="Button" type="Button" parent="."]
+visible = false
 offset_left = 783.0
 offset_top = -273.0
 offset_right = 1294.0
@@ -134,6 +135,7 @@ shortcut_in_tooltip = false
 text = "test"
 
 [node name="Music_Player" type="AudioStreamPlayer" parent="."]
+volume_db = -80.0
 
 [connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
 [connection signal="finished" from="Music_Player" to="." method="_on_music_player_finished"]
